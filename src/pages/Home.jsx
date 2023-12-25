@@ -17,7 +17,7 @@ function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get("http://localhost:3000/admin/jobs").then((res) => {
+    axios.get(`http://localhost:3000/admin/jobs`).then((res) => {
       setJobs(res.data);
       setIsLoading(false);
     });

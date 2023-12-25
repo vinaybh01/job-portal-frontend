@@ -7,7 +7,7 @@ function JobDetails() {
   const { id } = useParams();
   const [job, setJob] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/job/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/job/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Network response was not ok: ${res.status}`);
