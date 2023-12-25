@@ -7,7 +7,7 @@ function JobDetails() {
   const { id } = useParams();
   const [job, setJob] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/job/${id}`)
+    fetch(`https://job-portal-app-api.onrender.com/job/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Network response was not ok: ${res.status}`);

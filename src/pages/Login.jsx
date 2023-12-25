@@ -8,10 +8,13 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
-    const response = await axios.post("http://localhost:3000/login", {
-      username: email,
-      password: password,
-    });
+    const response = await axios.post(
+      "https://job-portal-app-api.onrender.com/login",
+      {
+        username: email,
+        password: password,
+      }
+    );
     const { username } = response.data.user;
     localStorage.setItem("email", username);
     navigate("/");

@@ -9,7 +9,7 @@ function Register() {
 
   const handleSubmit = async () => {
     await axios.post(
-      "http://localhost:3000/register",
+      "https://job-portal-app-api.onrender.com/register",
 
       {
         username: email,

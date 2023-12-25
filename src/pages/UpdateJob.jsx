@@ -22,7 +22,7 @@ function UpdateJob() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/job/${id}`)
+      .get(`https://job-portal-app-api.onrender.com/job/${id}`)
       .then((res) => {
         const response = res.data;
         setJobData(response);

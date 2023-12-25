@@ -17,10 +17,12 @@ function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`http://localhost:3000/admin/jobs`).then((res) => {
-      setJobs(res.data);
-      setIsLoading(false);
-    });
+    axios
+      .get(`https://job-portal-app-api.onrender.com/admin/jobs`)
+      .then((res) => {
+        setJobs(res.data);
+        setIsLoading(false);
+      });
   }, []);
 
   const handleInputChange = (e) => {

@@ -20,7 +20,7 @@ function MyJobs() {
     if (userEmail) {
       console.log(userEmail);
       setLoading(true);
-      fetch(`http://localhost:3000/admin/myjobs/${userEmail}`)
+      fetch(`https://job-portal-app-api.onrender.com/admin/myjobs/${userEmail}`)
         .then((res) => res.json())
         .then((data) => {
           // console.log(data);

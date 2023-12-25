@@ -29,7 +29,7 @@ function CreateJob() {
     data.skills = selecetedOptions;
     console.log(data);
     axios
-      .post("http://localhost:3000/admin/createjob", data)
+      .post("https://job-portal-app-api.onrender.com/admin/createjob", data)
       .then((res) => console.log("Job created:", res.data))
       .then((err) => console.log(err));
 
