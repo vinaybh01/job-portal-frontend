@@ -33,7 +33,7 @@ function Navbar() {
           </div>
           <div className="login">
             <button
-              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-700 text-white hover:text-black font-semibold rounded"
+              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-800 text-white hover:text-black font-semibold rounded"
               onClick={() => {
                 localStorage.removeItem("email");
                 navigate("/login");
@@ -68,13 +68,13 @@ function Navbar() {
           </div>
           <div className="login">
             <button
-              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-700 text-white hover:text-black font-semibold rounded"
+              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-800 text-white hover:text-black font-semibold rounded"
               onClick={() => navigate("/login")}
             >
               LOGIN
             </button>
             <button
-              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-700 text-white hover:text-black font-semibold rounded"
+              className="mr-4 border pl-2 pr-2 pt-1 pb-1 bg-blue-800 text-white hover:text-black font-semibold rounded"
               onClick={() => navigate("/register")}
             >
               REGISTER

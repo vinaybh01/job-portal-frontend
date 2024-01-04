@@ -3,7 +3,7 @@ import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa6";
 
 function NewsLetter() {
   return (
-    <div>
+    <div className="w-72">
       <div>
         <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
           <FaEnvelopeOpenText /> Email me for Jobs

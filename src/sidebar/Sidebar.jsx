@@ -11,7 +11,7 @@ function Sidebar({ handleChange, handleClick }) {
       <h3>Filters</h3>
       <Location handleChange={handleChange} />
       <Salary handleChange={handleChange} handleClick={handleClick} />
-      <JobPosting handleChange={handleChange} />
+      {/* <JobPosting handleChange={handleChange} /> */}
       <WorkExperience handleChange={handleChange} />
       <WorkType handleChange={handleChange} />
     </div>

@@ -5,6 +5,7 @@ import Creatable from "react-select/creatable";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Loading from "../component/Loading";
 
 function UpdateJob() {
   const [selecetedOptions, setSelecetedOptions] = useState(null);
@@ -25,8 +26,8 @@ function UpdateJob() {
       .get(`https://job-portal-app-api.onrender.com/job/${id}`)
       .then((res) => {
         const response = res.data;
+        console.log(response);
         setJobData(response);
-
         // Set default values for form fields using setValue
         // setValue("jobTitle", jobData.jobTitle);
         // setValue("companyName", jobData.companyName);
@@ -73,188 +74,205 @@ function UpdateJob() {
 
   return (
     <div>
-      <div className="main">
-        <div className="bg-[#FAFAFA] py-10 px-4 ">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* first-row */}
-            <div className="create-job-flex ">
-              <div className=" w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Job Title
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: Web Dev"
-                  {...register("jobTitle")}
-                  className="create-job-input"
-                />
+      {jobData ? (
+        <div className="main">
+          <div className="bg-[#FAFAFA] py-10 px-4 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* first-row */}
+              <div className="create-job-flex ">
+                <div className=" w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Job Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: Web Dev"
+                    defaultValue={jobData.jobTitle}
+                    {...register("jobTitle")}
+                    className="create-job-input"
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: Micrsoft"
+                    defaultValue={jobData.companyName}
+                    {...register("companyName")}
+                    className="create-job-input"
+                  />
+                </div>
               </div>
-              <div className="w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: Micrsoft"
-                  {...register("companyName")}
-                  className="create-job-input"
-                />
+              {/* second-row */}
+              <div className="create-job-flex">
+                <div className=" w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Minimum Salary
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="$20k"
+                    defaultValue={jobData.minPrice}
+                    {...register("minPrice")}
+                    className="create-job-input"
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Maximum Salary
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="$100k"
+                    defaultValue={jobData.maxPrice}
+                    {...register("maxPrice")}
+                    className="create-job-input"
+                  />
+                </div>
               </div>
-            </div>
-            {/* second-row */}
-            <div className="create-job-flex">
-              <div className=" w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Minimum Salary
-                </label>
-                <input
-                  type="text"
-                  placeholder="$20k"
-                  {...register("minPrice")}
-                  className="create-job-input"
-                />
+              {/* third row */}
+              <div className="create-job-flex">
+                <div className=" w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Salary Type
+                  </label>
+                  <select
+                    {...register("salaryType")}
+                    defaultValue={jobData.salaryType}
+                    className="create-job-input"
+                  >
+                    <option value="Mr">Choose your salary</option>
+                    <option value="Hourly">Hourly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                  </select>
+                </div>
+                <div className="w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Job Location
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ex: London"
+                    defaultValue={jobData.jobLocation}
+                    {...register("jobLocation")}
+                    className="create-job-input"
+                  />
+                </div>
               </div>
-              <div className="w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Maximum Salary
-                </label>
-                <input
-                  type="text"
-                  placeholder="$100k"
-                  {...register("maxPrice")}
-                  className="create-job-input"
-                />
-              </div>
-            </div>
-            {/* third row */}
-            <div className="create-job-flex">
-              <div className=" w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Salary Type
-                </label>
-                <select
-                  {...register("salaryType")}
-                  className="create-job-input"
-                >
-                  <option value="Mr">Choose your salary</option>
-                  <option value="Hourly">Hourly</option>
-                  <option value="Monthly">Monthly</option>
-                  <option value="Yearly">Yearly</option>
-                </select>
-              </div>
-              <div className="w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Job Location
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: London"
-                  {...register("jobLocation")}
-                  className="create-job-input"
-                />
-              </div>
-            </div>
-            {/* Fourth row */}
-            <div className="create-job-flex">
-              {/* <div className="w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Job Posting Date
-                </label>
-                <input
-                  type="date"
-                  placeholder="Ex: 2023-11-3"
-                  {...register("postingDate")}
-                  className="create-job-input"
-                />
-              </div> */}
-              <div className=" w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Experience Level
-                </label>
-                <select
-                  {...register("experienceLevel")}
-                  className="create-job-input"
-                >
-                  <option value="Mr">Choose your exprience</option>
-                  <option value="Any experience">Any experience</option>
-                  <option value="Fresher">Fresher</option>
-                  <option value="0-1 Years">0-1 Years</option>
-                  <option value="2-5 Years">2-5 Years</option>
-                </select>
-              </div>
-            </div>
-            {/* 5th row */}
-            <div>
+              {/* Fourth row */}
+              <div className="create-job-flex">
+                {/* <div className="w-1/2">
               <label htmlFor="" className="block mb-2 text-lg">
-                Required Skill Set:
-              </label>
-              <Creatable
-                className="create-job-input py-4"
-                defaultValue={selecetedOptions}
-                onChange={setSelecetedOptions}
-                options={options}
-                isMulti
-              />
-            </div>
-            {/* 6th row */}
-            <div className="create-job-flex">
-              <div className="w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Company Logo
-                </label>
-                <input
-                  type="url"
-                  placeholder="Paste your company logo URL"
-                  {...register("companyLogo")}
-                  className="create-job-input"
-                />
-              </div>
-              <div className=" w-1/2">
-                <label htmlFor="" className="block mb-2 text-lg">
-                  Job Type
-                </label>
-                <select
-                  {...register("employmentType")}
-                  className="create-job-input"
-                >
-                  <option value="Mr">Choose your Job type</option>
-                  <option value="Full-time">Full-time</option>
-                  <option value="Internship">Internship</option>
-                  <option value="Work remotely">Work remotely</option>
-                  <option value="Hybrid">Hybrid</option>
-                </select>
-              </div>
-            </div>
-            {/* 7throw */}
-            <div className="w-full ">
-              <label htmlFor="" className="block mb-2 text-lg">
-                Job Description
-              </label>
-              <textarea
-                placeholder="Description"
-                {...register("description")}
-                className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
-                rows={6}
-              />
-            </div>
-            <div>
-              <label htmlFor="" className="block mb-2 text-lg">
-                Job Posted By
+                Job Posting Date
               </label>
               <input
-                type="email"
-                placeholder="Your Email"
-                {...register("postedBy")}
+                type="date"
+                placeholder="Ex: 2023-11-3"
+                {...register("postingDate")}
                 className="create-job-input"
               />
-            </div>
-            <input
-              type="submit"
-              className="my-5 block mt-12 bg-blue-800 text-white font-semibold px-8 py-2 rounded-sm cursor-pointer"
-            />
-          </form>
+            </div> */}
+                <div className=" w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Experience Level
+                  </label>
+                  <select
+                    {...register("experienceLevel")}
+                    defaultValue={jobData.experienceLevel}
+                    className="create-job-input"
+                  >
+                    <option value="Mr">Choose your exprience</option>
+                    <option value="Any experience">Any experience</option>
+                    <option value="Fresher">Fresher</option>
+                    <option value="0-1 Years">0-1 Years</option>
+                    <option value="2-5 Years">2-5 Years</option>
+                  </select>
+                </div>
+              </div>
+              {/* 5th row */}
+              <div>
+                <label htmlFor="" className="block mb-2 text-lg">
+                  Required Skill Set:
+                </label>
+                <Creatable
+                  className="create-job-input py-4"
+                  defaultValue={jobData.selecetedOptions}
+                  onChange={setSelecetedOptions}
+                  options={options}
+                  isMulti
+                />
+              </div>
+              {/* 6th row */}
+              <div className="create-job-flex">
+                <div className="w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Company Logo
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="Paste your company logo URL"
+                    defaultValue={jobData.companyLogo}
+                    {...register("companyLogo")}
+                    className="create-job-input"
+                  />
+                </div>
+                <div className=" w-1/2">
+                  <label htmlFor="" className="block mb-2 text-lg">
+                    Job Type
+                  </label>
+                  <select
+                    {...register("employmentType")}
+                    defaultValue={jobData.employmentType}
+                    className="create-job-input"
+                  >
+                    <option value="Mr">Choose your Job type</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Work remotely">Work remotely</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </div>
+              </div>
+              {/* 7throw */}
+              <div className="w-full ">
+                <label htmlFor="" className="block mb-2 text-lg">
+                  Job Description
+                </label>
+                <textarea
+                  placeholder="Description"
+                  defaultValue={jobData.description}
+                  {...register("description")}
+                  className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
+                  rows={6}
+                />
+              </div>
+              <div>
+                <label htmlFor="" className="block mb-2 text-lg">
+                  Job Posted By
+                </label>
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  defaultValue={jobData.postedBy}
+                  {...register("postedBy")}
+                  className="create-job-input"
+                />
+              </div>
+              <input
+                type="submit"
+                className="my-5 block mt-12 bg-blue-800 text-white font-semibold px-8 py-2 rounded-sm cursor-pointer"
+              />
+            </form>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-center m-20">
+          <Loading />
+        </div>
+      )}
     </div>
   );
 }

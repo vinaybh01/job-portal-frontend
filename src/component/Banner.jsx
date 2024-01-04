@@ -39,7 +39,7 @@ function Banner({ handleInputChange, handleLocationChange }) {
             <FiMapPin className="absolute mt-3 ml-2.5 opacity-80 " />
             {/* <FiSearch className="absolute mt-2.5" /> */}
           </div>
-          <button className="bg-blue-800 text-white p-2 m-2 rounded">
+          <button className="bg-blue-800  text-white p-2 m-2 rounded">
             Submit
           </button>
         </div>

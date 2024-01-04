@@ -5,6 +5,7 @@ import Cart from "../component/Cart";
 import Sidebar from "../sidebar/Sidebar";
 import NewsLetter from "../component/NewsLetter";
 import axios from "axios";
+import Loading from "../component/Loading";
 
 function Home() {
   const [selectedCat, setSelectedCat] = useState(null);
@@ -126,7 +127,7 @@ function Home() {
         {/* main  */}
         <div className="col-span-2 bg-white p4 rounded-sm">
           {isLoading ? (
-            <p className="font-semibold text-xl">Loading</p>
+            <Loading />
           ) : result.length > 0 ? (
             <Jobs result={result} />
           ) : (

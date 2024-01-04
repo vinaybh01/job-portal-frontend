@@ -7,6 +7,7 @@ import UpdateJob from "./pages/UpdateJob";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import JobDetails from "./pages/JobDetails";
+import Footer from "./component/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/job-des/:id" element={<JobDetails />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

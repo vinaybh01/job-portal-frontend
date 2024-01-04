@@ -23,7 +23,13 @@ function JobPosting({ handleChange }) {
       <div>
         <h4 className="text-lg font-medium mb-2">Date of posting</h4>
         <label className="sidebar-label-container">
-          <input type="radio" name="test2" id="test" value="" />
+          <input
+            type="radio"
+            name="test2"
+            id="test"
+            value=""
+            onChange={handleChange}
+          />
           <span className="checkmark"></span>
           All
         </label>

@@ -1,23 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { z } from "zod";
 
 function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
 
   const handleSubmit = async () => {
-    await axios.post(
-      "https://job-portal-app-api.onrender.com/register",
+    try {
+      const userInputSchema = z.object({
+        username: z.string().email(),
+        password: z.string().min(6),
+      });
 
-      {
+      const validatedData = userInputSchema.parse({
         username: email,
-        password: password,
-      }
-    );
+        password,
+      });
+      await axios.post(
+        "https://job-portal-app-api.onrender.com/register",
 
-    navigate("/login");
+        {
+          username: validatedData.username,
+          password: validatedData.password,
+        }
+      );
+
+      navigate("/login");
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        err.errors.forEach((error) => {
+          if (error.path.includes("username")) {
+            setEmailError("Invalid email format");
+          }
+          if (error.path.includes("password")) {
+            setPasswordError("Password must be at least 6 characters");
+          }
+        });
+      } else {
+        setGeneralError("Something went wrong. Please try again.");
+      }
+
+      setTimeout(() => {
+        setEmailError("");
+        setPasswordError("");
+        setGeneralError("");
+      }, 2500);
+    }
   };
   return (
     <div className="">
@@ -29,6 +63,15 @@ function Register() {
           />
         </div>
         <div className="md:w-1/3 max-w-sm">
+          {emailError && (
+            <div className="error-message text-red-700">{emailError}</div>
+          )}
+          {passwordError && (
+            <div className="error-message text-red-700">{passwordError}</div>
+          )}
+          {generalError && (
+            <div className="error-message text-red-700">{generalError}</div>
+          )}
           <input
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
             type="text"
